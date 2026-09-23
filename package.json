@@ -1,14 +1,14 @@
 {
   "name": "dr_chantell_mongoose_models_and_schemas",
   "version": "1.0.0",
-  "description": "",
+  "description": "Beginner-friendly Digital Bookshelf CRUD API using Express, Mongoose, and MongoDB Atlas",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Dr. Chantell McDowell, Per Scholas Student",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
