@@ -1,6 +1,4 @@
-# Digital Bookshelf API
-
-Author: Dr. Chantell McDowell, Per Scholas Student
+Digital Bookshelf API
 
 Project Overview
 
@@ -134,3 +132,6 @@ I can copy the returned `_id` and use it to test the GET one, PUT, and DELETE ro
 Security
 
 My `.gitignore` prevents both `.env` and `node_modules/` from being uploaded to GitHub. My private MongoDB credentials stay only in my local `.env` file.
+
+Author: Dr. Chantell McDowell
+Per Scholas Student
