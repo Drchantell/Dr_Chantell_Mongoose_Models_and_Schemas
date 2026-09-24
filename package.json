@@ -1,13 +1,21 @@
 {
   "name": "dr_chantell_mongoose_models_and_schemas",
-  "version": "1.0.0",
-  "description": "Beginner-friendly Digital Bookshelf CRUD API using Express, Mongoose, and MongoDB Atlas",
+  "version": "2.0.0",
+  "description": "HERitage LibraryOS - a full CRUD library catalog built with Node.js, Express, MongoDB Atlas, Mongoose, Tailwind CSS, vanilla JavaScript, and TypeScript learning source.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node --watch server.js",
+    "seed": "node seed.js"
   },
-  "keywords": [],
+  "keywords": [
+    "library",
+    "catalog",
+    "mongoose",
+    "mongodb",
+    "express",
+    "crud"
+  ],
   "author": "Dr. Chantell McDowell, Per Scholas Student",
   "license": "ISC",
   "type": "commonjs",
