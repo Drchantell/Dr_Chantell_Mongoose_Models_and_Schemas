@@ -1,7 +1,7 @@
 {
   "name": "dr_chantell_mongoose_models_and_schemas",
-  "version": "2.0.0",
-  "description": "HERitage LibraryOS - a professional full CRUD library catalog built with Node.js, Express, MongoDB Atlas, Mongoose, Tailwind CSS, vanilla JavaScript, TypeScript learning source, middleware, method override, and server-to-server communication.",
+  "version": "3.0.0",
+  "description": "HERitage LibraryOS - a professional Black author library catalog using Node.js, Express, EJS, MongoDB Atlas, Mongoose, CRUD, Tailwind CSS, vanilla JavaScript, TypeScript source, middleware, method-override, Postman-ready JSON routes, and server-to-server communication.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -9,23 +9,13 @@
     "seed": "node seed.js",
     "typecheck": "tsc --noEmit"
   },
-  "keywords": [
-    "library",
-    "catalog",
-    "mongoose",
-    "mongodb",
-    "express",
-    "crud",
-    "node",
-    "typescript",
-    "javascript"
-  ],
   "author": "Dr. Chantell McDowell, Per Scholas Student",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
     "axios": "^1.12.2",
     "dotenv": "^18.0.3",
+    "ejs": "^3.1.10",
     "express": "^5.2.1",
     "method-override": "^3.0.0",
     "mongodb": "^7.6.0",
