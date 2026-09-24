@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Book | Dr. Chantell's Library Book Catalog</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="form-page">
+    <section class="form-shell">
+      <a href="/books" class="back-link">← Back to Book List</a>
+      <p class="kicker">CREATE • POST /books</p>
+      <h1>Add a New Book</h1>
+      <p class="form-intro">Create an editable MongoDB record for a fiction or nonfiction title by a Black author.</p>
+
+      <div class="isbn-lookup">
+        <div>
+          <label for="lookupIsbn">Server-to-Server ISBN Lookup</label>
+          <input id="lookupIsbn" type="text" placeholder="Example: 9780156028356">
+        </div>
+        <button id="lookupBookBtn" type="button">Find Book</button>
+      </div>
+
+      <form action="/books" method="POST" class="book-form" data-book-form>
+        <label class="span-2"><span>Title *</span><input id="title" type="text" name="title" required></label>
+        <label><span>Author *</span><input id="author" type="text" name="author" required></label>
+        <label><span>ISBN</span><input id="isbn" type="text" name="isbn"></label>
+        <label><span>Genre</span><input id="genre" type="text" name="genre" placeholder="Literary Fiction"></label>
+        <label><span>Call Number</span><input id="callNumber" type="text" name="callNumber" placeholder="F WAL"></label>
+        <label>
+          <span>Format</span>
+          <select id="format" name="format">
+            <option>Hardcover</option><option selected>Paperback</option><option>eBook</option><option>Audiobook</option><option>DVD</option><option>Other</option>
+          </select>
+        </label>
+        <label>
+          <span>Status</span>
+          <select id="status" name="status">
+            <option>Available</option><option>Checked Out</option><option>On Hold</option><option>Processing</option><option>Lost</option>
+          </select>
+        </label>
+        <label><span>Branch</span><input id="branch" type="text" name="branch" value="Main Library"></label>
+        <label><span>Shelf Location</span><input id="shelfLocation" type="text" name="shelfLocation"></label>
+        <label><span>Published Date</span><input id="publishedDate" type="date" name="publishedDate"></label>
+        <label><span>Due Date</span><input id="dueDate" type="date" name="dueDate"></label>
+        <label><span>Total Copies</span><input id="totalCopies" type="number" name="totalCopies" min="0" value="1"></label>
+        <label><span>Available Copies</span><input id="availableCopies" type="number" name="availableCopies" min="0" value="1"></label>
+        <label><span>Circulation Count</span><input id="circulationCount" type="number" name="circulationCount" min="0" value="0"></label>
+        <label><span>Cover Image URL</span><input id="coverImage" type="url" name="coverImage" placeholder="Optional"></label>
+        <label class="span-2"><span>Tags</span><input id="tags" type="text" name="tags" placeholder="classic, memoir, STEM, book club"></label>
+        <label class="span-2">
+          <span>Short Summary</span>
+          <textarea id="summary" name="summary" maxlength="500" rows="5"></textarea>
+          <small id="summaryCount">0 / 500</small>
+        </label>
+        <label class="checkbox-row span-2"><input type="checkbox" name="completed"><span>Catalog record completed</span></label>
+
+        <div class="form-actions span-2">
+          <a href="/books" class="cancel-button">Cancel</a>
+          <button type="submit" class="pink-button">Create Book</button>
+        </div>
+      </form>
+    </section>
+  </main>
+  <script src="/catalog.js"></script>
+</body>
+</html>
