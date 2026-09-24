@@ -7,6 +7,7 @@ const methodOverride = require("method-override");
 const connectDB = require("./db/connection");
 const bookRoutes = require("./routes/bookRoutes");
 const lookupRoutes = require("./routes/lookupRoutes");
+const webRoutes = require("./routes/webRoutes");
 const requestLogger = require("./middleware/requestLogger");
 const notFound = require("./middleware/notFound");
 const errorHandler = require("./middleware/errorHandler");
@@ -14,28 +15,29 @@ const errorHandler = require("./middleware/errorHandler");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// EJS
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(
-  methodOverride((req) => {
-    if (req.query && req.query._method) {
-      return req.query._method;
-    }
 
-    if (req.body && req.body._method) {
-      const method = req.body._method;
-      delete req.body._method;
-      return method;
-    }
+// This lets HTML forms use PUT and DELETE with ?_method=PUT or ?_method=DELETE.
+app.use(methodOverride("_method"));
 
-    return undefined;
-  })
-);
 app.use(requestLogger);
 app.use(express.static(path.join(__dirname, "public")));
 
-// JSON health route
+// Home
+app.get("/", (req, res) => {
+  res.redirect("/books");
+});
+
+// EJS catalog routes
+app.use("/books", webRoutes);
+
+// JSON routes for Postman and JavaScript fetch()
 app.get("/api/health", (req, res) => {
   res.status(200).json({
     app: "HERitage LibraryOS",
@@ -45,11 +47,10 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-// API routes
 app.use("/api/books", bookRoutes);
 app.use("/api/lookup", lookupRoutes);
 
-// API 404 and error middleware
+// API middleware
 app.use("/api", notFound);
 app.use(errorHandler);
 
