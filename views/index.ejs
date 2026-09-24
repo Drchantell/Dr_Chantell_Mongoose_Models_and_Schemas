@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dr. Chantell's Library Book Catalog</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="hero-shell">
+    <div class="max-w-7xl mx-auto px-6 py-8">
+      <nav class="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <p class="kicker">Dr. Chantell McDowell • Per Scholas Student</p>
+          <h1 class="brand-title">Dr. Chantell's Library Book Catalog</h1>
+          <p class="brand-subtitle">A dynamic fiction and nonfiction collection featuring Black authors.</p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <button id="themeToggle" class="glass-button" type="button">Toggle Theme</button>
+          <button id="exportBtn" class="glass-button" type="button">Export CSV</button>
+          <a href="/books/new" class="pink-button">+ Add New Book</a>
+        </div>
+      </nav>
+
+      <section class="stats-grid mt-8">
+        <article class="stat-card stat-pink"><span>Unique Titles</span><strong><%= stats.titles %></strong><small>MongoDB records</small></article>
+        <article class="stat-card stat-teal"><span>Total Copies</span><strong><%= stats.copies %></strong><small>Collection inventory</small></article>
+        <article class="stat-card stat-lavender"><span>Available</span><strong><%= stats.available %></strong><small>Ready for checkout</small></article>
+        <article class="stat-card stat-black"><span>Circulation</span><strong><%= stats.circulation %></strong><small>Total recorded use</small></article>
+      </section>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-6 py-10">
+    <section class="catalog-tools">
+      <div class="search-box">
+        <span>⌕</span>
+        <input id="catalogSearch" type="search" placeholder="Search title, author, ISBN, genre, call number...">
+      </div>
+
+      <select id="genreFilter">
+        <option value="">All genres</option>
+        <% [...new Set(books.map(book => book.genre).filter(Boolean))].sort().forEach(genre => { %>
+          <option value="<%= genre %>"><%= genre %></option>
+        <% }) %>
+      </select>
+
+      <select id="statusFilter">
+        <option value="">All statuses</option>
+        <option value="Available">Available</option>
+        <option value="Checked Out">Checked Out</option>
+        <option value="On Hold">On Hold</option>
+        <option value="Processing">Processing</option>
+        <option value="Lost">Lost</option>
+      </select>
+    </section>
+
+    <div class="section-heading">
+      <div>
+        <p class="kicker">Live MongoDB Collection</p>
+        <h2>Browse the Book List</h2>
+      </div>
+      <p><span id="visibleCount"><%= books.length %></span> titles shown</p>
+    </div>
+
+    <section id="catalogGrid" class="catalog-grid">
+      <% books.forEach(book => { 
+        const cover = coverFor(book);
+        const searchText = [book.title, book.author, book.isbn, book.genre, book.callNumber, book.branch].filter(Boolean).join(" ").toLowerCase();
+      %>
+        <article class="catalog-card" data-book-card data-search="<%= searchText %>" data-genre="<%= book.genre || '' %>" data-status="<%= book.status || '' %>">
+          <a href="/books/<%= book._id %>" class="cover-frame" aria-label="View <%= book.title %>">
+            <% if (cover) { %>
+              <img src="<%= cover %>" alt="Book cover for <%= book.title %>" class="book-cover" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+              <div class="cover-fallback" style="display:none;"><%= book.title %></div>
+            <% } else { %>
+              <div class="cover-fallback"><%= book.title %></div>
+            <% } %>
+          </a>
+
+          <div class="book-copy">
+            <div class="book-heading-row">
+              <div>
+                <p class="genre-pill"><%= book.genre || 'General' %></p>
+                <h3><a href="/books/<%= book._id %>"><%= book.title %></a></h3>
+                <p class="author-line">by <%= book.author %></p>
+              </div>
+              <span class="status-pill status-<%= (book.status || 'Available').toLowerCase().replaceAll(' ', '-') %>"><%= book.status || 'Available' %></span>
+            </div>
+
+            <p class="summary"><%= book.summary || 'No summary has been added yet. Edit this record to add a short catalog summary.' %></p>
+
+            <div class="metadata-grid">
+              <div><span>Call Number</span><strong><%= book.callNumber || 'Not assigned' %></strong></div>
+              <div><span>Copies</span><strong><%= book.availableCopies %> / <%= book.totalCopies %> available</strong></div>
+              <div><span>Branch</span><strong><%= book.branch || 'Main Library' %></strong></div>
+              <div><span>Format</span><strong><%= book.format || 'Paperback' %></strong></div>
+            </div>
+
+            <div class="card-actions">
+              <a href="/books/<%= book._id %>" class="view-button">View</a>
+              <a href="/books/<%= book._id %>/edit" class="edit-button">Edit</a>
+              <form action="/books/<%= book._id %>?_method=DELETE" method="POST" class="delete-form" onsubmit="return confirm('Delete this book from the catalog?');">
+                <button class="delete-button" type="submit">Delete</button>
+              </form>
+            </div>
+          </div>
+        </article>
+      <% }) %>
+    </section>
+
+    <section id="noResults" class="empty-panel hidden">
+      <div>📚</div>
+      <h3>No matching books</h3>
+      <p>Try another search or add a new title.</p>
+      <a href="/books/new" class="pink-button">Add New Book</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Dr. Chantell's Library Book Catalog • Node.js • Express • EJS • MongoDB Atlas • Mongoose • CRUD • Method Override • JavaScript • TypeScript</p>
+  </footer>
+
+  <script src="/catalog.js"></script>
+</body>
+</html>
