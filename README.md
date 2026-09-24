@@ -1,88 +1,169 @@
-Digital Bookshelf API
+Dr. Chantell's Library Book Catalog
 
 Project Overview
 
-In this project, I created a RESTful Digital Bookshelf API using Node.js, Express, MongoDB Atlas, Mongoose, and dotenv. The API allows a librarian to create, view, update, and delete book records stored in a MongoDB database.
+I created a dynamic library book catalog featuring fiction and nonfiction books by Black authors. The catalog stores book records in MongoDB Atlas and lets a librarian create, read, update, and delete books.
+
+The project includes book covers, short summaries, ISBNs, genres, call numbers, branches, shelf locations, copy counts, availability, circulation information, and editable records.
+
+What I Used in This Project
+
+HTML5
+CSS3
+Tailwind CSS
+JavaScript ES6+
+TypeScript learning source
+Node.js
+Express.js
+EJS
+REST APIs
+JSON
+MongoDB Atlas
+Mongoose
+NoSQL
+CRUD
+Middleware
+Method Override
+Async and Await
+Try and Catch Error Handling
+Server-to-Server Communication
+Axios
+dotenv
+Postman
+Git
+GitHub
+VS Code
+npm
 
 What I Learned
 
-I learned how Express, Mongoose, and MongoDB Atlas work together. I also learned why it is helpful to separate the database connection, Mongoose model, and Express routes into different folders. This made the project easier for me to understand and troubleshoot.
+I learned how the front end, Express server, EJS views, routes, MongoDB database, and Mongoose model work together.
 
-Project Structure
+I learned CRUD:
+Create adds a new book.
+Read displays all books or one book.
+Update changes an existing book.
+Delete removes a book.
 
-Dr_Chantell_Mongoose_Models_and_Schemas
-db folder
-connection.js
-models folder
-Book.js
-routes folder
-bookRoutes.js
-.env.example
-.gitignore
-package.json
-package-lock.json
-README.md
-reflection.md
-server.js
-Required Dependencies
+I learned how to find one book by its MongoDB ID:
 
-This project uses Express, Mongoose, and dotenv.
+const foundBook = await Book.findById(req.params.id);
 
-Install the dependencies by entering npm install in the terminal.
+If the book is not found, I return a 404 response:
 
-Environment Variables
+return res.status(404).send("Book not found.");
 
-The real .env file is private and ignored by Git. I use .env.example to show the required variable names without exposing my MongoDB username or password.
-To create the local environment file, I enter cp .env.example .env in the terminal.
-I then replace the example values in my local .env file with my MongoDB Atlas Database Access user information.
-Example format:
-MONGODB_URI=mongodb+srv://YOUR_USERNAME@YOUR_CLUSTER.mongodb.net/digitalBookshelf
-PORT=3000
+I learned that the GET edit route only finds the book and renders the form:
 
-Database Connection Challenge
+res.render("edit", { book: foundBook });
 
-One of the biggest challenges I had was connecting my application to MongoDB Atlas. At first, the application reported that the MongoDB URI was undefined. I learned that my .env file had to be inside the same project folder as server.js. I also learned that the environment variable had to be named MONGODB_URI exactly.
+The edit route does not change MongoDB. The form submits to a different PUT route that performs the update.
 
-After correcting that issue, I received a bad auth: authentication failed message. I learned that MongoDB Atlas uses a Database Access user for the application connection. This database user is separate from the username and password used to sign in to the MongoDB Atlas website.
-I also discovered that I had more than one Atlas project and more than one local .env file. An older connection string was pointing to a different cluster. I corrected this by using the Digital Bookshelf Lab project, checking the correct Database Access user, verifying my IP Access List, and copying a new Node.js driver connection string from the correct DigitalBookshelfCluster.
+I learned how method-override lets an HTML form act like PUT or DELETE.
 
-After I updated the correct local .env file, the application connected successfully and displayed:
-MongoDB connected successfully!
-Server is running on port 3000
+Example:
 
-This troubleshooting process helped me understand environment variables, Atlas Database Access users, cluster connection strings, and network access.
+<form action="/books/<%= book._id %>?_method=PUT" method="POST">
 
-Book Model
+I learned how async and await work with MongoDB and external APIs.
 
-The Book schema contains a title that is a required string, an author that is a required string, an ISBN that is a unique string, a published date that uses the Date data type, and an in-stock field that is a Boolean with a default value of true.
+I learned how try and catch provide error handling.
 
-CRUD API Routes
-POST /api/books creates a new book.
-GET /api/books displays all books.
-GET /api/books/ displays one book.
-PUT /api/books/ updates a book.
-DELETE /api/books/ deletes a book.
-The routes use async and await with try and catch blocks for error handling. The POST route returns status 201 when a new book is created. The routes that use an ID also handle invalid IDs and books that cannot be found.
+Example:
 
-Running the Project
-
-I can start the server by entering node server.js or npm start in the terminal.
-Testing With Postman
-
-I can test all five CRUD routes in Postman. For a POST request, I can send the following JSON information:
-{
-"title": "The Color Purple",
-"author": "Alice Walker",
-"isbn": "9780156028356",
-"publishedDate": "1982-01-01",
-"inStock": true
+catch (error) {
+  console.error(error);
+  return res.status(500).send("SERVER ISSUE!");
 }
 
-I can copy the returned _id and use it to test the GET one, PUT, and DELETE routes.
+I learned how middleware works between a request and a route. This project uses middleware for JSON, form data, static files, request logging, method override, 404 responses, and server errors.
+
+I learned how JSON is used by REST APIs and Postman.
+
+I learned server-to-server communication by using Axios to request book information from Open Library.
+
+I learned how EJS works with res.render() to send MongoDB data into HTML pages.
+
+EJS Pages
+
+views/index.ejs displays all books.
+views/new.ejs displays the new book form.
+views/show.ejs displays one book.
+views/edit.ejs displays the Book List Edit Page with a pre-populated form.
+
+Web CRUD Routes
+
+GET /books
+Displays all books.
+
+GET /books/new
+Displays the new book form.
+
+POST /books
+Creates a book.
+
+GET /books/:id
+Finds and displays one book by ID.
+
+GET /books/:id/edit
+Finds one book and renders the edit form.
+
+PUT /books/:id
+Updates the book.
+
+DELETE /books/:id
+Deletes the book.
+
+Postman REST API Routes
+
+GET /api/books
+GET /api/books/:id
+POST /api/books
+PUT /api/books/:id
+DELETE /api/books/:id
+
+Server-to-Server Route
+
+GET /api/lookup?isbn=ISBN_NUMBER
+
+This route asks Open Library for book information.
+
+Dependencies
+
+express
+mongoose
+mongodb
+dotenv
+ejs
+method-override
+axios
+
+Development Dependency
+
+typescript
+
+Running the Project in VS Code
+
+1. Open the project folder in VS Code.
+2. Run npm install.
+3. Create a .env file from .env.example.
+4. Add the MongoDB Atlas connection string.
+5. Run npm start.
+6. Open http://localhost:3000.
+
+Optional Demo Books
+
+Run:
+
+npm run seed
 
 Security
 
-My .gitignore file prevents the .env file and node_modules folder from being uploaded to GitHub. My private MongoDB credentials stay only in my local .env file.
+The real .env file is ignored by Git. MongoDB credentials should never be uploaded to GitHub.
+
+Other Full-Stack Coursework
+
+I have also studied Java, React, SQL, AWS EC2, Amazon S3, AWS CLI, and VPC. These are part of my broader coursework, but this specific catalog uses the Node.js, Express, EJS, MongoDB, Mongoose, JavaScript, TypeScript, and REST API stack listed above.
 
 Author: Dr. Chantell McDowell
 Per Scholas Student
