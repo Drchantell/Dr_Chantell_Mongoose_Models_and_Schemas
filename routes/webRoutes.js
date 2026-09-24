@@ -5,6 +5,16 @@ const Book = require("../models/Book");
 const router = express.Router();
 
 const cleanBookForm = (body) => {
+  // A checked HTML checkbox sends the word "on".
+  // I convert it to a true or false Boolean before saving to MongoDB.
+  let completed;
+
+  if (body.completed === "on") {
+    completed = true;
+  } else {
+    completed = false;
+  }
+
   return {
     title: body.title?.trim(),
     author: body.author?.trim(),
@@ -26,7 +36,7 @@ const cleanBookForm = (body) => {
     circulationCount: Math.max(0, Number(body.circulationCount || 0)),
     status: body.status || "Available",
     dueDate: body.dueDate || null,
-    completed: body.completed === "on",
+    completed: completed,
   };
 };
 
