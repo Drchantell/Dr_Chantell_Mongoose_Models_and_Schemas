@@ -99,8 +99,10 @@ router.get("/dashboard/stats", async (req, res) => {
   }
 });
 
-// READ ONE
+// READ ONE BOOK BY ID
 // GET /api/books/:id
+// Example for Postman: GET http://localhost:3000/api/books/BOOK_ID
+// Mongoose uses await Book.findById(req.params.id) to find one book.
 router.get("/:id", async (req, res) => {
   try {
     if (!mongoose.isValidObjectId(req.params.id)) {
