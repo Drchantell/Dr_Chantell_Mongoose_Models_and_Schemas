@@ -102,7 +102,10 @@ router.get("/:id/edit", async (req, res, next) => {
   }
 });
 
-// SHOW
+// SHOW ONE BOOK BY ID
+// GET /books/:id
+// req.params.id comes from the URL.
+// await Book.findById(req.params.id) finds that one MongoDB document.
 router.get("/:id", async (req, res, next) => {
   try {
     if (!mongoose.isValidObjectId(req.params.id)) {
