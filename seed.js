@@ -22,16 +22,33 @@ const demoBooks = [
     tags: ["classic", "award winner", "book club"]
   },
   {
+    title: "Beloved",
+    author: "Toni Morrison",
+    isbn: "9781400033416",
+    callNumber: "F MOR",
+    genre: "Literary Fiction",
+    format: "Paperback",
+    branch: "Main Library",
+    shelfLocation: "Adult Fiction M2",
+    publishedDate: "1987-09-16",
+    summary: "A powerful novel about memory, family, freedom, and the lasting trauma of slavery centered on Sethe and her family.",
+    totalCopies: 5,
+    availableCopies: 2,
+    circulationCount: 176,
+    status: "Available",
+    tags: ["classic", "Pulitzer Prize", "historical fiction"]
+  },
+  {
     title: "Becoming",
     author: "Michelle Obama",
     isbn: "9781524763138",
     callNumber: "B OBA",
-    genre: "Biography",
+    genre: "Memoir",
     format: "Hardcover",
     branch: "Main Library",
     shelfLocation: "Biography B1",
     publishedDate: "2018-11-13",
-    summary: "A personal memoir about family, education, public service, identity, and the experiences that shaped Michelle Obama's life.",
+    summary: "A memoir about family, education, public service, identity, and the experiences that shaped Michelle Obama's life.",
     totalCopies: 6,
     availableCopies: 2,
     circulationCount: 225,
@@ -60,7 +77,7 @@ const demoBooks = [
     author: "Angie Thomas",
     isbn: "9780062498533",
     callNumber: "YA THO",
-    genre: "Young Adult",
+    genre: "Young Adult Fiction",
     format: "Hardcover",
     branch: "Teen Library",
     shelfLocation: "YA Fiction T4",
@@ -77,7 +94,7 @@ const demoBooks = [
     author: "Jacqueline Woodson",
     isbn: "9780147515827",
     callNumber: "J 811 WOO",
-    genre: "Youth Poetry",
+    genre: "Memoir in Verse",
     format: "Paperback",
     branch: "Children's Library",
     shelfLocation: "Youth Poetry P2",
@@ -90,21 +107,38 @@ const demoBooks = [
     tags: ["youth", "poetry", "memoir"]
   },
   {
-    title: "The Immortal Life of Henrietta Lacks",
-    author: "Rebecca Skloot",
-    isbn: "9781400052189",
-    callNumber: "616.027 SKL",
-    genre: "Science",
+    title: "Between the World and Me",
+    author: "Ta-Nehisi Coates",
+    isbn: "9780812993547",
+    callNumber: "305.896 COA",
+    genre: "Nonfiction",
+    format: "Hardcover",
+    branch: "Main Library",
+    shelfLocation: "Social Sciences S4",
+    publishedDate: "2015-07-14",
+    summary: "A personal examination of race, history, identity, and American life written as a letter from a father to his son.",
+    totalCopies: 4,
+    availableCopies: 3,
+    circulationCount: 141,
+    status: "Available",
+    tags: ["race", "essays", "memoir"]
+  },
+  {
+    title: "The Warmth of Other Suns",
+    author: "Isabel Wilkerson",
+    isbn: "9780679763888",
+    callNumber: "304.809 WIL",
+    genre: "History",
     format: "Paperback",
     branch: "Main Library",
-    shelfLocation: "Science S6",
-    publishedDate: "2010-02-02",
-    summary: "A nonfiction account of Henrietta Lacks, the HeLa cell line, medical research, ethics, race, and the family affected by the discovery.",
+    shelfLocation: "US History H5",
+    publishedDate: "2010-09-07",
+    summary: "A narrative history of the Great Migration told through the lives of Black Americans who left the South for cities across the United States.",
     totalCopies: 4,
     availableCopies: 2,
-    circulationCount: 132,
+    circulationCount: 119,
     status: "Available",
-    tags: ["science", "ethics", "medical history"]
+    tags: ["Great Migration", "history", "Black history"]
   }
 ];
 
@@ -120,7 +154,7 @@ const seedCatalog = async () => {
       );
     }
 
-    console.log("Demo catalog added successfully.");
+    console.log("Black author demo catalog added successfully.");
   } catch (error) {
     console.error("Seed error:", error.message);
     process.exitCode = 1;
