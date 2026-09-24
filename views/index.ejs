@@ -110,6 +110,33 @@
       <% }) %>
     </section>
 
+    <section class="mt-12 rounded-[2rem] bg-black p-8 text-white shadow-2xl">
+      <p class="kicker">What I Practiced In This Project</p>
+      <h2 class="mt-2 text-3xl font-black">Full-Stack Skills Demonstrated</h2>
+      <p class="mt-3 text-white/75">This working catalog combines the concepts I learned in class.</p>
+
+      <div class="mt-6 flex flex-wrap gap-3">
+        <% ["HTML5","CSS3","Tailwind CSS","JavaScript ES6+","TypeScript","Node.js","Express.js","EJS","REST APIs","JSON","MongoDB Atlas","Mongoose","NoSQL","CRUD","Async/Await","Error Handling","Middleware","Method Override","Server-to-Server","Axios","Postman","Git/GitHub"].forEach(skill => { %>
+          <span class="rounded-full border border-pink-400/40 bg-white/10 px-4 py-2 text-sm font-bold"><%= skill %></span>
+        <% }) %>
+      </div>
+
+      <div class="mt-8 grid gap-4 md:grid-cols-3">
+        <article class="rounded-2xl bg-white/10 p-5">
+          <h3 class="text-xl font-black text-pink-300">MongoDB + Mongoose</h3>
+          <p class="mt-2 text-sm text-white/75">Book records use a Mongoose schema and are stored in MongoDB Atlas.</p>
+        </article>
+        <article class="rounded-2xl bg-white/10 p-5">
+          <h3 class="text-xl font-black text-cyan-300">Express + EJS</h3>
+          <p class="mt-2 text-sm text-white/75">Express finds data and res.render() sends it into index, show, new, and edit pages.</p>
+        </article>
+        <article class="rounded-2xl bg-white/10 p-5">
+          <h3 class="text-xl font-black text-purple-300">CRUD + REST</h3>
+          <p class="mt-2 text-sm text-white/75">The app creates, reads, updates, and deletes books through web routes and Postman-ready JSON routes.</p>
+        </article>
+      </div>
+    </section>
+
     <section id="noResults" class="empty-panel hidden">
       <div>📚</div>
       <h3>No matching books</h3>
