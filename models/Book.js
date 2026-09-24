@@ -52,12 +52,6 @@ const bookSchema = new mongoose.Schema(
       default: "",
       maxlength: 500,
     },
-    description: {
-      type: String,
-      trim: true,
-      default: "",
-      maxlength: 600,
-    },
     coverImage: {
       type: String,
       trim: true,
@@ -90,6 +84,10 @@ const bookSchema = new mongoose.Schema(
     dueDate: {
       type: Date,
       default: null,
+    },
+    completed: {
+      type: Boolean,
+      default: false,
     },
   },
   {
