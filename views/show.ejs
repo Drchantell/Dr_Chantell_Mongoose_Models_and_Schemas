@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= book.title %> | Dr. Chantell's Library Book Catalog</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="show-page">
+    <section class="show-shell">
+      <div class="show-toolbar">
+        <a href="/books" class="back-link">← Back to Book List</a>
+        <a href="/books/<%=book._id%>/edit" class="pink-button">Edit Book</a>
+      </div>
+
+      <div class="show-grid">
+        <div class="show-cover-frame">
+          <% if (coverUrl) { %>
+            <img src="<%=coverUrl%>" alt="Book cover for <%=book.title%>" class="show-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+            <div class="cover-fallback show-fallback" style="display:none;"><%=book.title%></div>
+          <% } else { %>
+            <div class="cover-fallback show-fallback"><%=book.title%></div>
+          <% } %>
+        </div>
+
+        <div>
+          <p class="kicker"><%=book.genre || 'General'%> • <%=book.format || 'Paperback'%></p>
+          <h1 class="show-title"><%=book.title%></h1>
+          <p class="show-author">by <%=book.author%></p>
+          <span class="status-pill status-<%= (book.status || 'Available').toLowerCase().replaceAll(' ', '-') %>"><%=book.status%></span>
+
+          <p class="show-summary"><%=book.summary || 'No summary has been added yet.'%></p>
+
+          <div class="detail-grid">
+            <div><span>ISBN</span><strong><%=book.isbn || 'Not entered'%></strong></div>
+            <div><span>Call Number</span><strong><%=book.callNumber || 'Not assigned'%></strong></div>
+            <div><span>Branch</span><strong><%=book.branch || 'Main Library'%></strong></div>
+            <div><span>Shelf</span><strong><%=book.shelfLocation || 'Not assigned'%></strong></div>
+            <div><span>Copies</span><strong><%=book.availableCopies%> of <%=book.totalCopies%> available</strong></div>
+            <div><span>Circulation</span><strong><%=book.circulationCount%></strong></div>
+            <div><span>Published</span><strong><%=book.publishedDate ? new Date(book.publishedDate).getFullYear() : 'Unknown'%></strong></div>
+            <div><span>Record Complete</span><strong><%=book.completed ? 'Yes' : 'No'%></strong></div>
+          </div>
+
+          <% if ((book.tags || []).length) { %>
+            <div class="tag-row">
+              <% book.tags.forEach(tag => { %><span><%=tag%></span><% }) %>
+            </div>
+          <% } %>
+
+          <form action="/books/<%=book._id%>?_method=DELETE" method="POST" class="show-delete" onsubmit="return confirm('Delete this book from the catalog?');">
+            <button type="submit" class="delete-button">Delete Book</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
