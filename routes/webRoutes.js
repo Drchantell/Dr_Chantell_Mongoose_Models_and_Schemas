@@ -80,7 +80,10 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// EDIT must come before SHOW
+// EDIT PAGE
+// GET /books/:id/edit
+// This route ONLY finds the book and renders the pre-populated edit form.
+// It does NOT update the database. The PUT route below performs the update.
 router.get("/:id/edit", async (req, res, next) => {
   try {
     if (!mongoose.isValidObjectId(req.params.id)) {
@@ -121,7 +124,10 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-// UPDATE - method-override changes POST?_method=PUT into PUT
+// UPDATE OPERATION
+// PUT /books/:id
+// This is the DIFFERENT route that actually updates MongoDB.
+// edit.ejs sends POST?_method=PUT and method-override changes it into PUT.
 router.put("/:id", async (req, res, next) => {
   try {
     const book = await Book.findByIdAndUpdate(
